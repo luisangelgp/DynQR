@@ -47,7 +47,7 @@
     var k = url.split("k=")[1];
 
     if (k) {
-      fetch(${AS_URL_BASE}?k=${k})
+      fetch(`${AS_URL_BASE}?k=${k}`)
         .then((response) => response.text())
         .then((text) => {
           document.getElementById("text-content").textContent = text; // Muestra el texto
@@ -75,7 +75,7 @@
   </script>
 </head>
 <body>
-  <p></p>
+  <p>Texto de Redirección</p>
   <div id="text-content"></div> <!-- Aquí aparecerá el texto dinámico -->
   <button id="copy-btn" style="display: none;" onclick="copyText()">Copiar texto</button> <!-- Botón para copiar -->
 </body>
