@@ -41,13 +41,13 @@
     }
   </style>
   <script>
-    const AS_URL_BASE = "https://script.google.com/a/macros/mercadolibre.com.mx/s/AKfycbwjv-dUDwE_rVTfekIirko8iDHQSpsjNvtaqPl1x9q7xpTqmPjHoMo_kzEsnswOG1-igg/exec";
+    const AS_URL_BASE = "https://script.google.com/a/macros/mercadolibre.com.mx/s/AKfycbwzI84rEUpIqrkNB7zKf16zWNIQg5S0PLutvm0rMJxgtKERE35BaJ4bW8H_453ch5fymw/exec";
 
     var url = document.location.href;
     var k = url.split("k=")[1];
 
     if (k) {
-      fetch(`${AS_URL_BASE}?k=${k}`)
+      fetch(${AS_URL_BASE}?k=${k})
         .then((response) => response.text())
         .then((text) => {
           document.getElementById("text-content").textContent = text; // Muestra el texto
@@ -75,7 +75,7 @@
   </script>
 </head>
 <body>
-  <p>Texto de Redirección</p>
+  <p></p>
   <div id="text-content"></div> <!-- Aquí aparecerá el texto dinámico -->
   <button id="copy-btn" style="display: none;" onclick="copyText()">Copiar texto</button> <!-- Botón para copiar -->
 </body>
