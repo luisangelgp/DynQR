@@ -1,76 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <title></title>
+  <meta charset="UTF-8">
+  <title>Redirección Simple</title>
   <style>
-      body {
-        background-color: lightblue;
-        text-align: center;
-      }
-      
-      .lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #fff;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-  </style>
-</head>
-<body>
-  <script>
-    const AS_URL_BASE = "https://script.google.com/a/macros/mercadolibre.com.mx/s/AKfycbwsP3YgHlUK4a_4Tj5tow2rVPMkDU9hm02uS--mtBz6cZgHvXCFu3s7faKofmbQlfjnKQ/exec";
-    
-    var url = document.location.href;
-    var k = url.substr(url.lastIndexOf("k=")+2);
-    
-    if(k){
-      fetch(AS_URL_BASE+'?k='+k)
-      .then(r => r.text())
-      .then((r) => {
-        console.log(r);
-        //document.write(r);
-        if(r){
-          document.location.replace(r);
-        }
-      })
-      .catch(err => console.log(err))
+    /* Estilo para el body y el contenido */
+    body {
+      display: flex; /* Usamos Flexbox */
+      flex-direction: column; /* Organiza los elementos en columna */
+      justify-content: center; /* Centra el contenido horizontalmente */
+      align-items: center; /* Centra el contenido verticalmente */
+      height: 100vh; /* 100% de la altura de la pantalla */
+      margin: 0; /* Quitamos el margen predeterminado */
+      background-color: lightblue; /* Fondo de pantalla */
+      font-family: Arial, sans-serif; /* Tipo de letra */
+      text-align: center; /* Centra el texto */
     }
 
+    /* Estilo del texto */
+    p {
+      font-size: 5.5rem;
+      color: white;
+      margin-bottom: 20px; /* Espacio debajo del texto */
+    }
+
+    /* Estilo del botón */
+    button {
+      padding: 10px 40px;
+      font-size: 3.5rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script>
+    const AS_URL_BASE = "https://script.google.com/a/macros/mercadolibre.com.mx/s/AKfycbwjv-dUDwE_rVTfekIirko8iDHQSpsjNvtaqPl1x9q7xpTqmPjHoMo_kzEsnswOG1-igg/exec";
+
+    var url = document.location.href;
+    var k = url.split("k=")[1];
+
+    if (k) {
+      fetch(${AS_URL_BASE}?k=${k})
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById("text-content").textContent = text; // Muestra el texto
+          document.getElementById("copy-btn").style.display = "block"; // Muestra el botón de copiar
+        })
+        .catch((err) => {
+          console.error("Error:", err);
+          document.getElementById("text-content").textContent = "Error al obtener el texto.";
+        });
+    } else {
+      document.getElementById("text-content").textContent = "Parámetro 'k' no encontrado.";
+    }
+
+    // Función para copiar el texto al portapapeles
+    function copyText() {
+      const textToCopy = document.getElementById("text-content").textContent;
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      alert("Texto copiado al portapapeles!");
+    }
   </script>
-  
-  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-  
-  
+</head>
+<body>
+  <p></p>
+  <div id="text-content"></div> <!-- Aquí aparecerá el texto dinámico -->
+  <button id="copy-btn" style="display: none;" onclick="copyText()">Copiar texto</button> <!-- Botón para copiar -->
 </body>
 </html>
